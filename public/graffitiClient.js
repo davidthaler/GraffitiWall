@@ -3,7 +3,11 @@ window.addEventListener('load', main)
 function getHTML(){
     let frame = document.querySelector('iframe')
     let workspace = document.querySelector('textarea')
-    workspace.value = frame.contentDocument.querySelector('html').innerHTML
+    if(frame.src.endsWith('.html')){
+        workspace.value = frame.contentDocument.querySelector('html').innerHTML
+    }else{
+        workspace.value = frame.contentDocument.querySelector('body').innerText
+    }
 }
 
 function getPage(){
