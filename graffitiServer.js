@@ -28,9 +28,9 @@ async function notAllowed(res){
     return {status: 405, body: `Method ${res.method} not allowed.`}
 }
 
-function urlPath(url, get=false){
+async function urlPath(url, get=false){
    if(get){
-       const clientFiles = ['graffiti.html', 'graffiti.css', 'graffiti.js']
+       const clientFiles = await readdir('static')
        if(clientFiles.includes(url.slice(1))){
            return join(process.cwd(), 'static', url.slice(1))
        }
@@ -44,7 +44,7 @@ function urlPath(url, get=false){
 }
 
 methods.DELETE = async function(req){
-    let path = urlPath(req.url)
+    let path = await urlPath(req.url)
     let stats
     try{
         stats = await stat(path)
@@ -61,7 +61,7 @@ methods.DELETE = async function(req){
 }
 
 methods.GET = async function(req){
-    let path = urlPath(req.url, true)
+    let path = await urlPath(req.url, true)
     let stats
     try{
         stats = await stat(path)
@@ -88,7 +88,7 @@ async function pipeStream(from, to){
 }
 
 methods.PUT = async function(req){
-    let path = urlPath(req.url)
+    let path = await urlPath(req.url)
     await pipeStream(req, createWriteStream(path))
     return {status: 204}
 }
