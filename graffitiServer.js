@@ -28,7 +28,13 @@ async function notAllowed(res){
     return {status: 405, body: `Method ${res.method} not allowed.`}
 }
 
-function urlPath(url){
+function urlPath(url, get=false){
+   if(get){
+       const clientFiles = ['graffiti.html', 'graffiti.css', 'graffiti.js']
+       if(clientFiles.includes(url.slice(1))){
+           return join(process.cwd(), 'static', url.slice(1))
+       }
+   }
     let {pathname} = parse(url)
     let path = resolve(decodeURIComponent(pathname).slice(1))
     if(path != baseDir && !path.startsWith(baseDir + sep)){
@@ -55,7 +61,7 @@ methods.DELETE = async function(req){
 }
 
 methods.GET = async function(req){
-    let path = urlPath(req.url)
+    let path = urlPath(req.url, true)
     let stats
     try{
         stats = await stat(path)
