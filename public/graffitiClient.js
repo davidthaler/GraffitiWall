@@ -28,7 +28,9 @@ function putPage(){
 }
 
 function main(){
-    document.querySelector('iframe').addEventListener('load', getHTML)
+    let frame = document.querySelector('iframe')
+    frame.addEventListener('load', getHTML)
+    frame.src='/public/'
     document.getElementById('loadButton').addEventListener('click', getPage)
     document.getElementById('saveButton').addEventListener('click', putPage)
 }
