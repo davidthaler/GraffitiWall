@@ -86,4 +86,3 @@ methods.PUT = async function(req){
     await pipeStream(req, createWriteStream(path))
     return {status: 204}
 }
-exports.urlPath = urlPath
