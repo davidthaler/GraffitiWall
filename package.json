@@ -1,0 +1,15 @@
+{
+  "name": "graffiti",
+  "version": "1.0.0",
+  "description": "Publicly editable website in nodejs.",
+  "main": "graffiti.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "eloquent",
+    "javascript"
+  ],
+  "author": "David Thaler/Matijn Haeverbeck",
+  "license": "MIT"
+}
