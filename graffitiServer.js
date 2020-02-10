@@ -7,7 +7,7 @@ const {stat, readdir, unlink} = require('fs').promises
 
 const baseDir = join(process.cwd(), 'public')
 const methods = Object.create(null)
-const PORT=8000
+const PORT = process.argv[2] || 8000
 
 createServer((req, res) => {
     let handler = methods[req.method] || notAllowed
