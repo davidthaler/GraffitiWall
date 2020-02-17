@@ -1,3 +1,12 @@
+/*
+This is editable/defaceable webpage from chapter 20 of Eloquent Javascript.
+It is based on the file-web server of that chapter.
+I removed DELETE, because we aren't implementing it in the UI anyway.
+To use this, run:
+    >> node graffitiServer.js
+then the editor is at: http://localhost:8000/graffiti.html
+and the pages are under: http://localhost:8000/public/<filename>
+*/
 const {createServer} = require('http')
 const {parse} = require('url')
 const {resolve, sep, join} = require('path')
@@ -41,23 +50,6 @@ async function urlPath(url, get=false){
         throw {status: 403, body: 'Forbidden'}
     }
     return path
-}
-
-methods.DELETE = async function(req){
-    let path = await urlPath(req.url)
-    let stats
-    try{
-        stats = await stat(path)
-    }catch (err){
-        if(err.code != "ENOENT") throw err
-        else return {status: 204}
-    }
-    if(stats.isDirectory()){
-        return {status: 403, body:'Forbidden'}
-    }else{
-        await unlink(path)
-        return {status: 204}
-    }
 }
 
 methods.GET = async function(req){
